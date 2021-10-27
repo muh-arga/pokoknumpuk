@@ -24,22 +24,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv = __importStar(require("dotenv"));
+const cors_1 = __importDefault(require("cors"));
+const Http = __importStar(require("http"));
+const apollo_server_express_1 = require("apollo-server-express");
+const schema_1 = require("./schema");
+const context_1 = require("./context");
+const port = process.env.PORT || 3000;
 const app = (0, express_1.default)();
 dotenv.config();
-const port = 3000;
-// app.listen(process.env.PORT, err => {
-//     if(err)
-//         return console.error(err);
-//     return console.log(`server is running on http://localhost:${process.env.PORT}`);
-// })
-app.get("/", async (req, res) => {
-    return res.status(200).send("Hello, Welcome to pokoknumpuk.😁");
+app.use((0, cors_1.default)());
+app.use(express_1.default.json());
+app.use(express_1.default.urlencoded({ extended: true }));
+const httpServer = Http.createServer(app);
+const apollo = new apollo_server_express_1.ApolloServer({
+    schema: schema_1.schema,
+    context: context_1.createContext,
 });
-try {
-    app.listen(process.env.PORT, () => {
-        console.log(`server is running on http://localhost:${process.env.PORT}`);
-    });
-}
-catch (error) {
-    console.error(error);
-}
+apollo.applyMiddleware({
+    app,
+});
+httpServer.listen(port, () => {
+    console.log(`🚀 Server ready at http://localhost:${process.env.PORT}/graphql`);
+});

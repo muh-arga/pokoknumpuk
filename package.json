@@ -4,20 +4,37 @@
   "description": "Aplikasi pengecekan pengumpulan tugas",
   "main": "./build/index.js",
   "scripts": {
-    "start": "tsc && node ./build/src/index.js",
-    "test": "echo \"Error: no test sepecified\" && exit 1"
+    "test": "echo \"Error: no test sepecified\" && exit 1",
+    "start": "yarn build && node build/index.js",
+    "dev:default": "yarn types && ts-node-dev --tree-kill --no-notify --respawn --transpile-only src/index.ts",
+    "dev": "yarn dev:default",
+    "build": "rimraf ./build && tsc",
+    "migrate:dev": "prisma migrate dev --preview feature",
+    "migrate:save": "prisma migrate dev --create-only",
+    "migrate:status": "prisma migrate status",
+    "migrate:deploy": "prisma migrate deploy",
+    "generate": "prisma generate",
+    "types": "yarn ts-node src/setupTypes.ts"
   },
   "license": "MIT",
   "dependencies": {
-    "@types/node": "^16.11.6",
+    "@prisma/client": "^3.3.0",
     "apollo-server-express": "^3.4.0",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "graphql": "^15.7.1",
+    "nexus": "^1.1.0",
+    "nexus-plugin-prisma": "^0.35.0",
     "typescript": "^4.4.4"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
+    "@types/glob": "^7.2.0",
+    "@types/node": "^16.11.6",
+    "prisma": "^3.3.0",
+    "ts-node": "^10.4.0",
     "ts-node-dev": "^1.1.8"
   }
 }
