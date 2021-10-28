@@ -20,7 +20,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@prisma/client": "^3.3.0",
+    "@prisma/client": "2.23",
     "apollo-server-express": "^3.4.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
