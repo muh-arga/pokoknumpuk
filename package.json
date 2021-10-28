@@ -9,7 +9,7 @@
     "start": "yarn build && node build/index.js",
     "dev:default": "yarn types && ts-node-dev --tree-kill --no-notify --respawn --transpile-only src/index.ts",
     "dev": "yarn dev:default",
-    "build": "yarn generate && NEXUS_SHOULD_GENERATE_ARTIFACTS=true node --loader --transpile-only ./src/schema.ts && tsc",
+    "build": "yarn generate && NEXUS_SHOULD_GENERATE_ARTIFACTS=true node --transpile-only ./src/schema.ts && tsc",
     "build:reflection": "cross-env NEXUS_SHOULD_EXIT_AFTER_REFLECTION=true NODE_ENV=development yarn ts-node src",
     "migrate:dev": "prisma migrate dev --preview feature",
     "migrate:save": "prisma migrate dev --create-only",
