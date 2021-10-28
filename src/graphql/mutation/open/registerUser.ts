@@ -1,5 +1,6 @@
 import { User } from "../../models/User";
 import { arg, extendType, inputObjectType } from "nexus";
+import { hashPassword } from "../../../common/hash";
 
 const registerUserInput = inputObjectType({
     name: "registerUserInput",
@@ -22,16 +23,15 @@ export const registerUser = extendType({
             },
             resolve: async (_, args, { prisma }) => {
                 const {data} = args;
-                
                 const result = await prisma.user.create({
                     data: {
-                        name: data?.name,
-                        email: data?.email,
-                        password: data?.password
+                        name: data.name,
+                        email: data.email,
+                        password: await hashPassword.hash(data.password)
                     },
                 });
                 return result;
-            }, 
+            },
         });
     },
 });
