@@ -9,7 +9,7 @@
     "start": "yarn build && node build/index.js",
     "dev:default": "yarn types && ts-node-dev --tree-kill --no-notify --respawn --transpile-only src/index.ts",
     "dev": "yarn dev:default",
-    "build": "rimraf ./build && tsc",
+    "build": "yarn types && yarn build:reflection && tsc --build tsconfig.build.json",
     "migrate:dev": "prisma migrate dev --preview feature",
     "migrate:save": "prisma migrate dev --create-only",
     "migrate:status": "prisma migrate status",
