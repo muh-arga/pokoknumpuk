@@ -29,20 +29,26 @@ const Http = __importStar(require("http"));
 const apollo_server_express_1 = require("apollo-server-express");
 const schema_1 = require("./schema");
 const context_1 = require("./context");
-const port = process.env.PORT || 3000;
-const app = (0, express_1.default)();
-dotenv.config();
-app.use((0, cors_1.default)());
-app.use(express_1.default.json());
-app.use(express_1.default.urlencoded({ extended: true }));
-const httpServer = Http.createServer(app);
-const apollo = new apollo_server_express_1.ApolloServer({
-    schema: schema_1.schema,
-    context: context_1.createContext,
-});
-apollo.applyMiddleware({
-    app,
-});
-httpServer.listen(port, () => {
+async function startApolloServer() {
+    const port = process.env.PORT || 3000;
+    const app = (0, express_1.default)();
+    dotenv.config();
+    app.use((0, cors_1.default)());
+    app.use(express_1.default.json());
+    app.use(express_1.default.urlencoded({ extended: true }));
+    const httpServer = Http.createServer(app);
+    const apollo = new apollo_server_express_1.ApolloServer({
+        schema: schema_1.schema,
+        context: context_1.createContext,
+    });
+    await apollo.start();
+    apollo.applyMiddleware({
+        app,
+    });
+    await new Promise((resolve) => {
+        httpServer.listen({ port: port });
+        resolve();
+    });
     console.log(`🚀 Server ready at http://localhost:${process.env.PORT}/graphql`);
-});
+}
+startApolloServer();

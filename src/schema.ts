@@ -8,6 +8,7 @@ export const schema = makeSchema({
     plugins: [
       nexusPrisma({
         experimentalCRUD: true,
+        shouldGenerateArtifacts: true,
       }),
     ],
     outputs: {
