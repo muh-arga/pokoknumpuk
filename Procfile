@@ -1,1 +1,1 @@
-web: yarn build && node build/index.js
+web: yarn build && node ./build/src/index.js
