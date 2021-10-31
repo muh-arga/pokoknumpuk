@@ -17,6 +17,8 @@ async function startApolloServer() {
 
   const httpServer = Http.createServer(app);
 
+  app.get("/", (_req, res) => res.send("Hallo Welcome to pokoknumpuk backend😉🐱‍🏍"));
+
   const apollo = new ApolloServer({
     schema,
     context: createContext,
