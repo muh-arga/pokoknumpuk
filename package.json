@@ -7,7 +7,7 @@
     "clean": "rm -rf dist",
     "web": "ts-node/src/index.ts",
     "test": "echo \"Error: no test sepecified\" && exit 1",
-    "start": "yarn build && node build/index.js",
+    "start": "yarn build && node ./build/index.js",
     "dev": "yarn dev:default",
     "dev:default": "yarn types && ts-node-dev --tree-kill --no-notify --respawn --transpile-only src/index.ts",
     "build": "yarn -s clean && yarn -s generate && tsc",
