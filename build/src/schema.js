@@ -32,13 +32,14 @@ exports.schema = (0, nexus_1.makeSchema)({
     plugins: [
         (0, nexus_plugin_prisma_1.nexusPrisma)({
             experimentalCRUD: true,
+            shouldGenerateArtifacts: true,
         }),
     ],
     outputs: {
         typegen: path_1.default.join(__dirname, '../node_modules/@types/nexus-typegen/index.d.ts'),
     },
     contextType: {
-        module: require.resolve('./context.ts'),
+        module: path_1.default.join(__dirname, "context.ts"),
         export: 'Context',
     },
     sourceTypes: {

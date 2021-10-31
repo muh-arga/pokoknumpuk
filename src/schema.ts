@@ -18,7 +18,7 @@ export const schema = makeSchema({
       ),
     },
     contextType: {
-      module: require.resolve('./context.ts'),
+      module: path.join(__dirname, "context.ts"),
       export: 'Context',
     },
     sourceTypes: {
